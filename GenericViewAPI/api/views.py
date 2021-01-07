@@ -1,46 +1,54 @@
-# Generic API Views and Model Mixing
-from .serializers import EmployeeSerializer
 from .models import Employee
-from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, \
-    DestroyModelMixin
+from .serializers import EmployeeSerializer
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView
+from rest_framework.generics import DestroyAPIView
+from rest_framework.generics import UpdateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView ,RetrieveUpdateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
 
-class EmployeeList(GenericAPIView, ListModelMixin):
+class EmployeeListView(ListAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
 
-
-class EmployeeCreate(GenericAPIView, CreateModelMixin):
+class EmployeeRetriveView(RetrieveAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
 
-
-class EmployeeRetrive(GenericAPIView, RetrieveModelMixin):
+class EmployeeCreateView(CreateAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
 
-
-class EmployeeUpdate(GenericAPIView, UpdateModelMixin):
+class EmployeeUpdateView(UpdateAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
 
-
-class EmployeeDelete(GenericAPIView, DestroyModelMixin):
+class EmployeeDeleteView(DestroyAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+
+# ListCreateAPIView
+class EmployeeListCreateView(ListCreateAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+
+# RetriveDestroyAPIView
+class EmployeeRetriveDestroyView(RetrieveDestroyAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+
+class EmployeeRetriveUpdateView(RetrieveUpdateAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+class EmployeeRetriveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
